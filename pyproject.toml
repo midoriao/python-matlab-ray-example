@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "python-matlab-ray-example"
+version = "0.1.0"
+description = "An example python project that calls matlab function in remote AWS instance"
+authors = ["Sota Sato <sotasato@nii.ac.jp>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "python_matlab_ray_example"}]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+ray = {extras = ["default"], version = "^2.3.1"}
+boto3 = "^1.26.116"
+matlabengine = {version = "^9.14.2", optional = true}
+
+[tool.poetry.group.dev.dependencies]
+jupyterlab = "^3.6.3"
+mypy = "^1.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
