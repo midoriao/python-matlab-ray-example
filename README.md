@@ -39,11 +39,34 @@ ray up ray_matlab_config.yaml
 Try a remote call:
 
 ```bash
-ray exec ray_matlab_config.yaml ./describe_tags.py
+ray submit ray_matlab_config.yaml ./describe_tags.py
+```
+
+Open the MATLAB GUI via web browser:
+
+```bash
+ray exec ray_matlab_config.yaml scripts/run_matlab.sh --tmux
+ray attach ray_matlab_config.yaml --port-forward 6080  # Just for port-forwarding purpose
+```
+
+Then you can see the remote desktop in <http://localhost:6080/vnc.html>.
+After the MATLAB is launched (it may take a few minutes), follow the instructions in the MATLAB window to enable your license. `matlab.engine.shareEngine` is already called in the script to make the engine available to be called from Python. Please leave the MATLAB window open.
+
+You can remotely execute Python scripts that uses MATLAB engine:
+
+```bash
+ray submit ray_matlab_config.yaml ./test_matlab.py
 ```
 
 Shutdown the cluster:
 
 ```bash
 ray down ray_matlab_config.yaml
+```
+
+REMARK: The `ray down` command does not terminate the EC2 instances.
+You need to manually terminate the instances in the AWS console.
+
+```bash
+aws ec2 terminate-instances --instance-ids <instance-id>
 ```

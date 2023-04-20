@@ -39,7 +39,7 @@ available_node_types:
         # For more documentation on available fields, see:
         # http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
         node_config:
-            InstanceType: m5.xlarge
+            InstanceType: c5.4xlarge
             ImageId: ami-0d2e8f0afa0ca54fd  # MATLAB 2022b, ap-northeast-1  https://github.com/mathworks-ref-arch/matlab-on-aws/blob/master/releases/R2022b/README.md
             BlockDeviceMappings:
                 - DeviceName: /dev/sda1
@@ -69,7 +69,7 @@ available_node_types:
         # For more documentation on available fields, see:
         # http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
         node_config:
-            InstanceType: m5.xlarge
+            InstanceType: c5.4xlarge
             ImageId: ami-0d2e8f0afa0ca54fd  # MATLAB 2022b, ap-northeast-1  https://github.com/mathworks-ref-arch/matlab-on-aws/blob/master/releases/R2022b/README.md
             # Run workers on spot by default. Comment this out to use on-demand.
             # NOTE: If relying on spot instances, it is best to specify multiple different instance
