@@ -36,6 +36,7 @@ new-matlab:
 .PHONY: test
 test:
 	poetry run ray submit $(RAY_CONF) ./describe_tags.py
+	poetry run ray submit $(RAY_CONF) ./find_matlab.py
 
 .PHONY: instance-ids
 instance-ids:
