@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = "~3.8"
 ray = {extras = ["default"], version = "^2.3.1"}
 boto3 = "^1.26.116"
 matlabengine = {version = "^9.14.2", optional = true}

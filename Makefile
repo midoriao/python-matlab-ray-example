@@ -1,7 +1,7 @@
 RAY_CONF := ray_matlab_config.yaml
 
 .PHONY: all
-all: install up test vnc-connection
+all: install up test
 
 .PHONY: install
 install: pyproject.toml
@@ -28,13 +28,13 @@ vnc-connection:
 	poetry run ray exec $(RAY_CONF) --port-forward 6080 'novnc --listen 6080 --vnc localhost:5901'
 
 .PHONY: new-matlab
-new-matlab: vnc-connection
-	poetry run ray exec $(RAY_CONF) run_matlab.sh --tmux
+new-matlab:
 	@echo "Please enter your credentials via <http://localhost:6080/vnc.html>."
+	poetry run ray exec $(RAY_CONF) run_matlab.sh --tmux
+	$(MAKE) vnc-connection
 
 .PHONY: test
 test:
-	poetry run ray submit $(RAY_CONF) ./describe_tags.py
 	poetry run ray submit $(RAY_CONF) ./describe_tags.py
 
 .PHONY: instance-ids
