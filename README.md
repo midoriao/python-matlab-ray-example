@@ -66,6 +66,9 @@ After all, you can remotely execute Python scripts that uses MATLAB engine:
 $ ray submit ray_matlab_config.yaml ./find_matlab.py
 ('MAT_ip_100_00_00_100_2456')
 
+$ ray exec ray_matlab_config.yaml 'python project/test_simulink.py'  # Initial call of simulink may take minutes
+Using MATLAB SESSION: MAT_ip_100_00_00_100_2456
+{'AbsTol': 1e-06, ...}
 ```
 
 You can view the ray dashboard at <http://localhost:8265>.
