@@ -1,8 +1,7 @@
 #!/bin/bash
 
-echo "matlab" | vncpasswd -f > ~/.vnc/passwd  # TODO: password should be an env var
-ln -s /usr/bin/mate-session ~/.vnc/xstartup
-vncserver :1
-websockify --web=/usr/share/novnc 6080 localhost:5901 &  # 5901 is the default VNC port
+HOSTNAME=$(hostname)
 
-DISPLAY=:1 matlab -r "matlab.engine.shareEngine"
+MATLAB_ENGINE_PREFIX=MAT_${HOSTNAME//[-.]/_}  # e.g., MAT_ip_10_0_0_10
+DISPLAY=:1 matlab -r "matlab.engine.shareEngine(compose(\"${MATLAB_ENGINE_PREFIX}_%d\", feature('getpid')))"
+

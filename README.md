@@ -42,20 +42,36 @@ Try a remote call:
 ray submit ray_matlab_config.yaml ./describe_tags.py
 ```
 
-Open the MATLAB GUI via web browser:
+Open the MATLAB window in headless VNC server:
 
 ```bash
-ray exec ray_matlab_config.yaml scripts/run_matlab.sh --tmux
-ray attach ray_matlab_config.yaml --port-forward 6080  # Just for port-forwarding purpose
+ray exec ray_matlab_config.yaml run_matlab.sh --tmux # Session is persistent in tmux
 ```
 
-Then you can see the remote desktop in <http://localhost:6080/vnc.html>.
-After the MATLAB is launched (it may take a few minutes), follow the instructions in the MATLAB window to enable your license. `matlab.engine.shareEngine` is already called in the script to make the engine available to be called from Python. Please leave the MATLAB window open.
-
-You can remotely execute Python scripts that uses MATLAB engine:
+Connect to the VNC session via <http://localhost:6080/vnc.html>.
 
 ```bash
-ray submit ray_matlab_config.yaml ./test_matlab.py
+ray exec ray_matlab_config.yaml --port-forward 6080 'novnc --listen 6080 --vnc localhost:5901'  # 5901 is the default VNC port
+```
+
+After the MATLAB is launched (it may take a few minutes), follow the instructions in the MATLAB window to enable your license. You may see `matlab.engine.shareEngine` is already executed in the script window, so the engine is available from Python.
+
+Matlab setup is done. Ctrl+C to terminate your remote VNC connection.
+Please note that VNC session itself is persistent and MATLAB window MUST keep running for Python connection.
+*DO NOT close the MATLAB window* and leave it open.
+
+After all, you can remotely execute Python scripts that uses MATLAB engine:
+
+```shell-session
+$ ray submit ray_matlab_config.yaml ./find_matlab.py
+('MAT_ip_100_00_00_100_2456')
+
+```
+
+You can view the ray dashboard at <http://localhost:8265>.
+
+```bash
+ray attach ray_matlab_config.yaml --port-forward 8265  # just for port forwarding
 ```
 
 Shutdown the cluster:
