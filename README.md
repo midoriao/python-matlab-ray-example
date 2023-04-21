@@ -77,7 +77,7 @@ Using MATLAB SESSION: MAT_ip_100_00_00_100_2456
 You can view the ray dashboard at <http://localhost:8265>.
 
 ```bash
-ray attach ray_matlab_config.yaml --port-forward 8265  # just for port forwarding
+ray dashboard ray_matlab_config.yaml
 ```
 
 Shutdown the cluster:
