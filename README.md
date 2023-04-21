@@ -7,6 +7,9 @@ This is a simple example of how to call a MATLAB function in remote AWS instance
 - Python 3.10
 - [Poetry](https://python-poetry.org/)
 
+All of the above can be set up using [devcontainer](https://code.visualstudio.com/docs/remote/containers) in VSCode.
+I strongly recommend using it.
+
 ## Environment-specific parameters
 
 The `ray_matlab_config.yaml` file contains the environment-specific parameters.

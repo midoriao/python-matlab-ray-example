@@ -5,7 +5,7 @@ description = "An example python project that calls matlab function in remote AW
 authors = ["Sota Sato <sotasato@nii.ac.jp>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "python_matlab_ray_example"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "~3.10"

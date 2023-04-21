@@ -14,6 +14,7 @@ pip install -q 'boto3>=1.4.8'
 
 LD_LIBRARY_PATH=/usr/local/matlab/bin/glnxa64 pip install "matlabengine==9.13.4"
 
+mkdir -p ~/.vnc
 echo "matlab" | vncpasswd -f > ~/.vnc/passwd  # TODO: password should be an env var
 chmod 600 ~/.vnc/passwd
 cat - << EOS > ~/.vnc/xstartup
