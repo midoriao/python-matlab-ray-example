@@ -13,6 +13,7 @@ ray = {extras = ["default"], version = "^2.3.1"}
 boto3 = "^1.26.116"
 matlabengine = {version = "^9.14.2", optional = true}
 numpy = "^1.24.2"
+pandas = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 jupyterlab = "^3.6.3"
