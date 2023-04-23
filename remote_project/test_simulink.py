@@ -3,15 +3,19 @@ import matlab
 import matlab.engine
 import pathlib
 
-sessions = matlab.engine.find_matlab()
-if len(sessions) == 0:
-    print("No MATLAB session found.")
-    exit()
+CREATE_MATLAB = True
 
-print(f"Using MATLAB session: {sessions[0]}")
-
-eng = matlab.engine.connect_matlab(sessions[0])
-ret = eng.sqrt(4.0)
+if CREATE_MATLAB:
+    print("CREATE_MATLAB=1. Using new MATLAB session.")
+    eng = matlab.engine.start_matlab()
+    print("Engine started.")
+else:
+    sessions = matlab.engine.find_matlab()
+    if len(sessions) == 0:
+        print("No MATLAB session found.")
+        exit()
+    print(f"Using MATLAB session: {sessions[0]}")
+    eng = matlab.engine.connect_matlab(sessions[0])
 
 eng.cd(os.getcwd())
 eng.addpath(str(pathlib.Path(__file__).parent.resolve()))
