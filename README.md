@@ -6,6 +6,8 @@ This is a simple example of how to call a MATLAB function in remote AWS instance
 
 - Python 3.8
 - [Poetry](https://python-poetry.org/)
+- MATLAB 2022b and linked license
+- aws cli
 
 All of the above can be set up using [devcontainer](https://code.visualstudio.com/docs/remote/containers) in VSCode.
 I strongly recommend using it to avoid struggles (especially, [ray may not work on M1 mac](https://github.com/ray-project/ray/issues/20084)).
@@ -30,6 +32,23 @@ poetry shell  # enter the virtual environment
 
 Configure the AWS credentials.
 See [Ray documentation](https://docs.ray.io/en/latest/cluster/vms/user-guides/launching-clusters/aws.html) for the instructions.
+
+## On MATLAB licensing
+
+Seemingly there are two way of MATLAB licensing in cloud platform.
+
+1. By default, MATLAB on AWS uses [*Login Named User*](https://www.mathworks.com/matlabcentral/answers/168441-what-is-login-named-user-and-how-can-i-use-it) (LNU) option to authenticate you.
+LNU assigns your MATLAB account to each MATLAB session, so lincense management is not locked to your remote host and respects portability of runtime environment.
+The limitation of LNU is that MATLAB asks your account information at each time. You cannnot start MATLAB session without GUI authentication prompt and thereby from `matlab.engine.start_matlab()` Python API.
+<https://stackoverflow.com/questions/67426665/issue-running-matlab-in-aws-via-terminal>
+
+2. The other option is linking your license with your remote host. This is the same way of licensing in local development.
+Following this way you can freely launch matlab session in the licensed host machine. 
+The easiest way to enable this option is just run `/usr/local/matlab/bin/activate_matlab.sh` and select your lincense number to consume.
+Do not forget to run `/usr/local/matlab/bin/deactivate_matlab.sh` before disposing your remote machine.
+
+Currently the instruction below intends the way of using LNU (I'll update it later).
+
 
 ## Usage
 
@@ -69,7 +88,7 @@ After all, you can remotely execute Python scripts that uses MATLAB engine:
 $ ray submit ray_matlab_config.yaml ./find_matlab.py
 ('MAT_ip_100_00_00_100_2456')
 
-$ ray exec ray_matlab_config.yaml 'python project/test_simulink.py'  # Initial call of simulink may take minutes
+$ ray rsync-up ray_matlab_config.yaml ./remote_project /home/ubuntu/project && ray exec ray_matlab_config.yaml 'python project/test_simulink.py'  # Initial call of simulink may take minutes
 Using MATLAB SESSION: MAT_ip_100_00_00_100_2456
 {'AbsTol': 1e-06, ...}
 ```
