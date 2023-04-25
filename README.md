@@ -80,7 +80,7 @@ After the MATLAB is launched (it may take a few minutes), follow the instruction
 
 Matlab setup is done. Ctrl+C to terminate your remote VNC connection.
 Please note that VNC session itself is persistent and MATLAB window MUST keep running for Python connection.
-*DO NOT close the MATLAB window* and leave it open.
+**DO NOT close the MATLAB window** and leave it open.
 
 After all, you can remotely execute Python scripts that uses MATLAB engine:
 
