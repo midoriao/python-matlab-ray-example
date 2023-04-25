@@ -18,7 +18,8 @@ else:
     eng = matlab.engine.connect_matlab(sessions[0])
 
 eng.cd(os.getcwd())
-eng.addpath(str(pathlib.Path(__file__).parent.resolve()))
+eng.addpath(str((pathlib.Path(__file__).parent / "simulators")))
+    
 opts = eng.simget("Autotrans_shift")
 print(opts)
 eng.simset(opts, "SaveFormat", "Array")
